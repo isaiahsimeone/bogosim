@@ -115,7 +115,6 @@ class SimulationCanvas:
                 return False
             time.sleep(0.015)
             self.update()
-        self.streak += 1
         self.update()
         return True
 
@@ -123,15 +122,18 @@ class SimulationCanvas:
         self.start_time = time.time()
         self.shuffle()
         self.update()
+        # Do bogosort
         while not self.isSorted():
             self.iterations += 1
             self.shuffle()
             self.update()
+
+
         # Found solution
         self.update()
         chime_time_taken = success_chime()
         time.sleep(FINISH_WAIT)
-        # Pause the total runtime clock by adding the wait time
+        # Pause the total runtime clock by adding the time taken by the chime
         self.absolute_start_time += FINISH_WAIT + chime_time_taken
         # Reset everything
         self.start_time = 0
