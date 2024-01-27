@@ -7,7 +7,7 @@ import simpleaudio as sa
 
 SIM_HEIGHT = 500 * 1.4
 SIM_WIDTH = 1000 * 1.4
-FINISH_WAIT = 5
+FINISH_WAIT = 1
 
 window = tk.Tk()
 
@@ -85,7 +85,7 @@ class SimulationCanvas:
         self.colours[rand1] = 'red'
         self.colours[rand2] = 'red'
         self.update()
-        time.sleep(0.09)
+        time.sleep(0.0001)
         temp = self.numbers[rand2]
         self.numbers[rand2] = self.numbers[rand1]
         self.numbers[rand1] = temp
@@ -102,18 +102,17 @@ class SimulationCanvas:
                 current_streak += 1
                 if current_streak > self.streak:
                     self.streak = current_streak
-                if i > 1:
+                if i > len(self.numbers)*0.4:
                     play(get_sound((i + 2) * 100, 0.05))
             else:
                 # Not in sorted order. Out of order block flashes red
                 self.colours[i] = "red"
                 self.update()
-                time.sleep(0.013)
                 # Reset everything to white
                 for i in range(0, len(self.numbers)):
                     self.colours[i] = "white"
                 return False
-            time.sleep(0.015)
+            time.sleep(0.0001)
             self.update()
         self.update()
         return True
